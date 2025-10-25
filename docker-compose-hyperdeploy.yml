@@ -1,0 +1,580 @@
+# docker-compose-hyperdeploy.yml - Maximum Intelligence Deployment
+# Generated: October 25, 2025, 3:48 AM HST
+# Provenance: FILEBOSS Ultra-Intelligence Framework + Casey's Legal Infrastructure
+# Intelligence Level: MAXIMUM ELEVATION MODE 🧠⚡
+
+version: '3.8'
+
+services:
+  # Core orchestration services
+  hyper-orchestrator:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.orchestrator
+    image: glaciereq/hyper-orchestrator:latest
+    container_name: fileboss-hyper-orchestrator
+    ports:
+      - "8000:8000"
+    environment:
+      - INTELLIGENCE_LEVEL=MAXIMUM
+      - VELOCITY_MODE=HYPER
+      - AUTO_OPTIMIZATION=ENABLED
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - NOTION_TOKEN=${NOTION_TOKEN}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - DATABASE_URL=postgresql+asyncpg://intelligence_admin:${POSTGRES_PASSWORD}@postgres-intelligence:5432/intelligence_hub
+      - REDIS_URL=redis://redis-turbo:6379/0
+      - ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+      - CASE_ID=1FDV-23-0001009
+      - CLIENT_NAME=Casey_Barton
+      - JURISDICTION=Hawaii_Family_Court
+    volumes:
+      - ./projects:/app/projects
+      - ./generated-tools:/app/tools
+      - ./deployment-configs:/app/configs
+      - ./intelligence-cache:/app/cache
+      - ./case-data:/app/cases
+      - ./evidence:/app/evidence
+      - ./logs:/app/logs
+    networks:
+      - intelligence-network
+    depends_on:
+      - postgres-intelligence
+      - redis-turbo
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+      
+  # AI constellation manager
+  ai-constellation:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.ai-constellation
+    image: glaciereq/ai-constellation:latest
+    container_name: fileboss-ai-constellation
+    ports:
+      - "8001:8001"
+    environment:
+      - MULTI_AI_ORCHESTRATION=ENABLED
+      - CONSENSUS_ANALYSIS=ACTIVE
+      - CONTINUOUS_LEARNING=ENABLED
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - LOCAL_LLM_ENDPOINT=${LOCAL_LLM_ENDPOINT:-http://localhost:11434}
+      - AI_CACHE_DIR=/app/cache
+      - MODEL_DOWNLOAD_DIR=/app/models
+      - LEGAL_SPECIALIST_MODE=ENABLED
+      - FAMILY_LAW_OPTIMIZATION=ACTIVE
+    volumes:
+      - ./ai-models:/app/models
+      - ./training-data:/app/training
+      - ./intelligence-cache:/app/cache
+      - ./case-data:/app/cases
+      - ./evidence:/app/evidence
+    depends_on:
+      - hyper-orchestrator
+      - redis-turbo
+    networks:
+      - intelligence-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 45s
+      timeout: 15s
+      retries: 3
+      
+  # Dynamic tool forge
+  tool-forge:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.tool-forge
+    image: glaciereq/dynamic-tool-forge:latest
+    container_name: fileboss-tool-forge
+    ports:
+      - "8002:8002"
+    environment:
+      - AUTO_TOOL_GENERATION=ENABLED
+      - CODE_COMPILATION=ACTIVE
+      - DEPLOYMENT_AUTOMATION=ENABLED
+      - LEGAL_TOOL_SPECIALIZATION=ENABLED
+      - CASE_SPECIFIC_TOOLS=ACTIVE
+      - MCP_SERVER_GENERATION=ENABLED
+      - GITHUB_INTEGRATION=ACTIVE
+      - PYTHON_VERSION=3.11
+      - NODE_VERSION=18
+    volumes:
+      - ./generated-tools:/app/output
+      - ./tool-templates:/app/templates
+      - ./projects:/app/source
+      - ./case-data:/app/cases
+      - /var/run/docker.sock:/var/run/docker.sock  # For container generation
+    depends_on:
+      - hyper-orchestrator
+    networks:
+      - intelligence-network
+    restart: unless-stopped
+      
+  # Notion intelligence hub
+  notion-hub:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.notion-hub
+    image: glaciereq/notion-intelligence:latest
+    container_name: fileboss-notion-hub
+    ports:
+      - "8003:8003"
+    environment:
+      - NOTION_TOKEN=${NOTION_TOKEN}
+      - AUTO_DOCUMENTATION=ENABLED
+      - HIERARCHICAL_ORGANIZATION=ACTIVE
+      - REAL_TIME_SYNC=ENABLED
+      - CASE_WORKSPACE_AUTOMATION=ENABLED
+      - LEGAL_TEMPLATE_SYSTEM=ACTIVE
+      - DEADLINE_MONITORING=ENABLED
+      - AI_CONTENT_GENERATION=ENABLED
+    volumes:
+      - ./notion-templates:/app/templates
+      - ./documentation:/app/docs
+      - ./projects:/app/projects
+      - ./case-data:/app/cases
+      - ./evidence:/app/evidence
+    depends_on:
+      - hyper-orchestrator
+      - postgres-intelligence
+    networks:
+      - intelligence-network
+    restart: unless-stopped
+      
+  # GitHub enhancement engine
+  github-enhancer:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.github-enhancer
+    image: glaciereq/github-enhancer:latest
+    container_name: fileboss-github-enhancer
+    ports:
+      - "8004:8004"
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - AUTO_WORKFLOW_GENERATION=ENABLED
+      - REPOSITORY_OPTIMIZATION=ACTIVE
+      - MCP_SERVER_DEPLOYMENT=ENABLED
+      - LEGAL_WORKFLOW_TEMPLATES=ENABLED
+      - COMPLIANCE_AUTOMATION=ACTIVE
+      - SECURITY_SCANNING=ENABLED
+      - VERSION_CONTROL_INTELLIGENCE=ENABLED
+    volumes:
+      - ./github-configs:/app/configs
+      - ./workflow-templates:/app/workflows
+      - ./generated-tools:/app/tools
+      - ./case-data:/app/cases
+      - ./deployment-configs:/app/deployment
+    depends_on:
+      - hyper-orchestrator
+    networks:
+      - intelligence-network
+    restart: unless-stopped
+      
+  # N8N super automation
+  n8n-super:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.n8n-super
+    image: glaciereq/n8n-super:latest
+    container_name: fileboss-n8n-super
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=${N8N_USER:-admin}
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_PASSWORD}
+      - WEBHOOK_URL=https://${DOMAIN_NAME:-localhost}
+      - GENERIC_TIMEZONE=Pacific/Honolulu
+      - N8N_PERSONALIZATION_ENABLED=false
+      - N8N_VERSION_NOTIFICATIONS_ENABLED=false
+      - N8N_TEMPLATES_ENABLED=true
+      - N8N_ONBOARDING_FLOW_DISABLED=true
+      - AUTO_WORKFLOW_GENERATION=ENABLED
+      - AI_INTEGRATION=MAXIMUM
+      - LEGAL_AUTOMATION_MODE=ACTIVE
+      - CASE_MONITORING=ENABLED
+      - DEADLINE_AUTOMATION=ACTIVE
+      - EVIDENCE_PROCESSING=ENABLED
+    volumes:
+      - ./n8n-data:/home/node/.n8n
+      - ./n8n-workflows:/app/workflows
+      - ./generated-tools:/app/tools
+      - ./case-data:/app/cases
+      - ./evidence:/app/evidence
+    depends_on:
+      - hyper-orchestrator
+      - postgres-intelligence
+    networks:
+      - intelligence-network
+    restart: unless-stopped
+      
+  # Enhanced provenance tracker
+  provenance-tracker:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.provenance-tracker
+    image: glaciereq/provenance-tracker:latest
+    container_name: fileboss-provenance-tracker
+    ports:
+      - "8005:8005"
+    environment:
+      - BLOCKCHAIN_INTEGRATION=ENABLED
+      - ENHANCED_TRACKING=MAXIMUM
+      - AUTO_AUDIT_TRAIL=ACTIVE
+      - LEGAL_COMPLIANCE_MODE=ENABLED
+      - CHAIN_OF_CUSTODY=MAXIMUM_SECURITY
+      - IMMUTABLE_LOGGING=ENABLED
+      - EVIDENCE_INTEGRITY=CRITICAL
+      - AUDIT_AUTOMATION=ACTIVE
+    volumes:
+      - ./provenance-data:/app/data
+      - ./audit-logs:/app/logs
+      - ./blockchain-data:/app/blockchain
+      - ./case-data:/app/cases
+      - ./evidence:/app/evidence
+    depends_on:
+      - hyper-orchestrator
+      - postgres-intelligence
+    networks:
+      - intelligence-network
+    restart: unless-stopped
+    
+  # Legal intelligence analyzer
+  legal-intelligence:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.legal-intelligence
+    image: glaciereq/legal-intelligence:latest
+    container_name: fileboss-legal-intelligence
+    ports:
+      - "8006:8006"
+    environment:
+      - LEGAL_ANALYSIS_MODE=FAMILY_LAW
+      - JURISDICTION=HAWAII
+      - COURT_LEVEL=FAMILY_COURT
+      - CASE_TYPE=CUSTODY_DISPUTE
+      - AI_LEGAL_RESEARCH=ENABLED
+      - PRECEDENT_ANALYSIS=ACTIVE
+      - STRATEGY_OPTIMIZATION=MAXIMUM
+      - COMPLIANCE_MONITORING=CRITICAL
+      - DEADLINE_INTELLIGENCE=ACTIVE
+    volumes:
+      - ./legal-data:/app/legal
+      - ./case-data:/app/cases
+      - ./evidence:/app/evidence
+      - ./legal-research:/app/research
+    depends_on:
+      - ai-constellation
+      - postgres-intelligence
+    networks:
+      - intelligence-network
+    restart: unless-stopped
+      
+  # PostgreSQL for advanced data management
+  postgres-intelligence:
+    image: postgres:15-alpine
+    container_name: fileboss-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=intelligence_hub
+      - POSTGRES_USER=intelligence_admin
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=C --lc-ctype=C
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./db-init:/docker-entrypoint-initdb.d
+      - ./backups:/app/backups
+    networks:
+      - intelligence-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U intelligence_admin -d intelligence_hub"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      
+  # Redis for high-speed caching and queuing
+  redis-turbo:
+    image: redis:7-alpine
+    container_name: fileboss-redis
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    volumes:
+      - redis-data:/data
+      - ./redis-config:/usr/local/etc/redis
+    networks:
+      - intelligence-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
+    
+  # MinIO for secure file storage
+  minio-secure:
+    image: minio/minio:latest
+    container_name: fileboss-minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER:-fileboss}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+      - MINIO_BROWSER_REDIRECT_URL=http://localhost:9001
+    volumes:
+      - minio-data:/data
+      - ./minio-config:/root/.minio
+    networks:
+      - intelligence-network
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      
+  # Elasticsearch for advanced search and analytics
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0
+    container_name: fileboss-elasticsearch
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=true
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - xpack.security.http.ssl.enabled=false
+      - xpack.security.transport.ssl.enabled=false
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+      - ./elasticsearch-config:/usr/share/elasticsearch/config
+    networks:
+      - intelligence-network
+    restart: unless-stopped
+    mem_limit: 2g
+    
+  # Kibana for data visualization and monitoring
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.0
+    container_name: fileboss-kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD}
+    depends_on:
+      - elasticsearch
+    networks:
+      - intelligence-network
+    restart: unless-stopped
+    
+  # Grafana for advanced metrics visualization
+  grafana:
+    image: grafana/grafana:latest
+    container_name: fileboss-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana-config:/etc/grafana
+    networks:
+      - intelligence-network
+    restart: unless-stopped
+    
+  # Prometheus for metrics collection
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: fileboss-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus-config:/etc/prometheus
+      - prometheus-data:/prometheus
+    networks:
+      - intelligence-network
+    restart: unless-stopped
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+      
+  # Nginx reverse proxy with SSL termination
+  nginx-intelligence:
+    image: nginx:alpine
+    container_name: fileboss-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx-config:/etc/nginx/conf.d
+      - ./ssl-certificates:/etc/nginx/ssl
+      - ./logs/nginx:/var/log/nginx
+    depends_on:
+      - hyper-orchestrator
+      - ai-constellation
+      - tool-forge
+      - notion-hub
+      - github-enhancer
+    networks:
+      - intelligence-network
+    restart: unless-stopped
+    
+  # Backup and disaster recovery
+  backup-guardian:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backup-guardian
+    image: glaciereq/backup-guardian:latest
+    container_name: fileboss-backup-guardian
+    environment:
+      - BACKUP_SCHEDULE=0 */6 * * *  # Every 6 hours
+      - BACKUP_RETENTION_DAYS=90
+      - ENCRYPTION_ENABLED=true
+      - BACKUP_DESTINATIONS=local,s3,gdrive
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - S3_BACKUP_BUCKET=${S3_BACKUP_BUCKET}
+    volumes:
+      - ./case-data:/app/data/cases
+      - ./evidence:/app/data/evidence
+      - ./backups:/app/backups
+      - ./backup-config:/app/config
+      - postgres-data:/app/data/postgres
+    depends_on:
+      - postgres-intelligence
+    networks:
+      - intelligence-network
+    restart: unless-stopped
+    
+  # Security scanner and compliance monitor
+  security-sentinel:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.security-sentinel
+    image: glaciereq/security-sentinel:latest
+    container_name: fileboss-security-sentinel
+    ports:
+      - "8007:8007"
+    environment:
+      - SECURITY_SCANNING=MAXIMUM
+      - COMPLIANCE_MONITORING=LEGAL_PROFESSIONAL
+      - VULNERABILITY_SCANNING=ENABLED
+      - INTRUSION_DETECTION=ACTIVE
+      - PRIVACY_PROTECTION=MAXIMUM
+      - AUDIT_LOGGING=COMPREHENSIVE
+    volumes:
+      - ./security-config:/app/config
+      - ./security-logs:/app/logs
+      - ./compliance-reports:/app/reports
+    networks:
+      - intelligence-network
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/data/postgres
+      
+  redis-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/data/redis
+      
+  minio-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/data/minio
+      
+  elasticsearch-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/data/elasticsearch
+      
+  grafana-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/data/grafana
+      
+  prometheus-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/data/prometheus
+
+networks:
+  intelligence-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16
+          gateway: 172.20.0.1
+    driver_opts:
+      com.docker.network.bridge.name: fileboss-intelligence
+      com.docker.network.bridge.enable_icc: "true"
+      com.docker.network.bridge.enable_ip_masquerade: "true"
+      com.docker.network.driver.mtu: 1500
+      
+# Health check and monitoring configuration
+x-healthcheck-defaults: &healthcheck-defaults
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 30s
+
+# Resource limits for production deployment
+x-resource-limits: &resource-limits
+  deploy:
+    resources:
+      limits:
+        memory: 2G
+        cpus: '1.0'
+      reservations:
+        memory: 512M
+        cpus: '0.25'
+        
+# Logging configuration
+x-logging: &logging
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "10m"
+      max-file: "3"
+      compress: "true"
