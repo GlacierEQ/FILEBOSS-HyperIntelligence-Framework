@@ -97,11 +97,11 @@ class DynamicToolForge:
         
         tool_code = f"""
 #!/usr/bin/env python3
-"""
+'''
 Evidence Analyzer Tool for Case {case_context.get('case_id', 'Unknown')}
 Generated: {datetime.utcnow().isoformat()}
 Specialization: {case_context.get('case_type', 'General')} Legal Analysis
-"""
+'''
 
 import asyncio
 import json
@@ -126,7 +126,7 @@ class EvidenceAnalyzer:
         self.blockchain_tracker = BlockchainTracker()
     
     async def analyze_evidence_item(self, evidence_path: str, metadata: Dict[str, Any]) -> Dict[str, Any]:
-        """Comprehensive analysis of evidence item"""
+        '''Comprehensive analysis of evidence item'''
         
         # Determine evidence type
         evidence_type = await self.detect_evidence_type(evidence_path)
@@ -167,7 +167,7 @@ class EvidenceAnalyzer:
         return analysis_result
     
     async def analyze_document(self, file_path: str) -> Dict[str, Any]:
-        """Specialized document analysis"""
+        '''Specialized document analysis'''
         
         # OCR and text extraction
         extracted_text = await self.extract_text_content(file_path)
@@ -193,7 +193,7 @@ class EvidenceAnalyzer:
         }}
     
     async def generate_strategic_insights(self, analysis_result: Dict[str, Any]) -> Dict[str, Any]:
-        """Generate strategic legal insights from analysis"""
+        '''Generate strategic legal insights from analysis'''
         
         insights = await self.ai_models.generate_strategic_analysis(
             analysis_result, 
@@ -262,11 +262,11 @@ if __name__ == '__main__':
         
         tool_code = f"""
 #!/usr/bin/env python3
-"""
+'''
 Timeline Reconstruction Tool for Case {case_context.get('case_id', 'Unknown')}
 Generated: {datetime.utcnow().isoformat()}
 Specialization: Chronological Evidence Analysis and Event Correlation
-"""
+'''
 
 import asyncio
 import json
@@ -289,7 +289,7 @@ class TimelineReconstructor:
         self.ai_analyzer = TimelineAIAnalyzer()
     
     async def reconstruct_timeline(self, evidence_items: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Reconstruct comprehensive case timeline from evidence"""
+        '''Reconstruct comprehensive case timeline from evidence'''
         
         # Extract temporal events from all evidence
         events = []
@@ -333,7 +333,7 @@ class TimelineReconstructor:
         }}
     
     async def extract_temporal_events(self, evidence_item: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """Extract temporal events from evidence item"""
+        '''Extract temporal events from evidence item'''
         
         events = []
         
@@ -360,7 +360,7 @@ class TimelineReconstructor:
         return events
     
     async def detect_event_clusters(self, events: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        """Detect clusters of related events using ML techniques"""
+        '''Detect clusters of related events using ML techniques'''
         
         if not events:
             return []
@@ -394,7 +394,7 @@ class TimelineReconstructor:
         return cluster_analysis
     
     async def identify_critical_periods(self, events: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        """Identify critical time periods in the case"""
+        '''Identify critical time periods in the case'''
         
         critical_periods = []
         
