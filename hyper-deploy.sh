@@ -7,15 +7,27 @@
 set -euo pipefail
 
 # Configuration
-PROJECT_NAME="fileboss-hyper-intelligence-framework"
-DEPLOYMENT_ENV="${1:-development}"
-INTELLIGENCE_LEVEL="${2:-maximum}"
-VELOCITY_MODE="${3:-hyper}"
-CASE_ID="1FDV-23-0001009"
-CLIENT_NAME="Casey_Barton"
-JURISDICTION="Hawaii_Family_Court"
+log_info "Loading configuration from config.json..."
+if [ ! -f "config.json" ]; then
+    log_error "config.json not found!"
+    exit 1
+fi
 
-echo "🚀 INITIATING FILEBOSS HYPER-INTELLIGENT DEPLOYMENT"
+PROJECT_NAME=$(jq -r .project_name config.json)
+DEPLOYMENT_ENV=$(jq -r .deployment_env config.json)
+INTELLIGENCE_LEVEL=$(jq -r .intelligence_level config.json)
+VELOCITY_MODE=$(jq -r .velocity_mode config.json)
+CASE_ID=$(jq -r .case_id config.json)
+CLIENT_NAME=$(jq -r .client_name config.json)
+JURISDICTION=$(jq -r .jurisdiction config.json)
+
+DEPLOYMENT_ENV="${1:-$DEPLOYMENT_ENV}"
+INTELLIGENCE_LEVEL="${2:-$INTELLIGENCE_LEVEL}"
+VELOCITY_MODE="${3:-$VELOCITY_MODE}"
+
+log_success "Configuration loaded successfully."
+
+echo "🚀 INITIATING FILEBOSS HY-INTELLIGENT DEPLOYMENT"
 echo "=========================================================="
 echo "Project: $PROJECT_NAME"
 echo "Environment: $DEPLOYMENT_ENV"
